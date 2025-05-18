@@ -1,0 +1,81 @@
+% Selected 5 questions from the homework assignment.
+
+% 1. sphere_volume(R) : a function that computes the volume of a sphere, given its radius R.
+
+import math.
+
+sphere_volume(R) = 4.0/3.0 * math:pi() * R*R*R.
+
+
+% 2. quadratic_equation(A,B,C): a function that computes the real roots of a given quadratic equation A*X^2+B*X+C=0.
+
+import math.
+
+quadratic_equation(A, B, C) = 
+    if A == 0 then
+        if B == 0 then
+            []            % no equation or infinite—treat as no real roots
+        else
+            [-C / B]      % linear solution
+        end
+    else
+        D = B*B - 4*A*C,
+        if D < 0 then
+            []            % no real roots
+        elseif D == 0 then
+            [ -B / (2*A) ]  % one real double root
+        else
+            S = math:sqrt(D),
+            [ (-B + S)/(2*A), (-B - S)/(2*A) ]
+        end
+    end.
+
+
+% 3. number_of_zeros(Lst): a function that returns the number of zeros in a given simple list of numbers Lst.
+
+number_of_zeros([]) = 0.
+number_of_zeros([0 | T]) = 1 + number_of_zeros(T).
+number_of_zeros([X | T]) = number_of_zeros(T) if X != 0.
+
+
+% 4. draw_pascal(N): a function that takes an integer N as a parameter and prints the first N rows of the Pascal's triangle.
+
+import util.  % for println/1
+
+% next_row(Row) = NextRow computes the next row of Pascal’s triangle
+next_row(Row) = [1] ++ [Row[I] + Row[I+1] : I in 1..length(Row)-1] ++ [1].
+
+% draw_pascal(N) prints the first N rows of Pascal’s triangle
+draw_pascal(N) =>
+    Row = [1],
+    foreach (_ in 1..N)
+        println(Row),
+        Row := next_row(Row)
+    end.
+
+main =>
+    printf("First 6 rows of Pascal's triangle:\n"),
+    draw_pascal(6).
+
+% First 6 rows of Pascal's triangle:
+% [1]
+% [1,1]
+% [1,2,1]
+% [1,3,3,1]
+% [1,4,6,4,1]
+% [1,5,10,10,5,1]
+
+
+% 8. remove_dups(Lst): return a copy of lst with duplicates of elements eliminated. For example, for Lst = [a,a,a,a,b,c,c,a,a,d,e,e,e,e], the returned list is [a,b,c,d,e].
+
+remove_dups([]) = [].
+remove_dups([H|T]) = [H | remove_dups([X : X in T, X != H])].
+
+main =>
+    println(remove_dups([])),                           % []
+    println(remove_dups([a,a,a,a,b,c,c,a,a,d,e,e,e,e])),% [a, b, c, d, e]
+    println(remove_dups([1,2,1,3,2,4,3,5])).             % [1, 2, 3, 4, 5]
+
+% []
+% abcde
+% [1,2,3,4,5]

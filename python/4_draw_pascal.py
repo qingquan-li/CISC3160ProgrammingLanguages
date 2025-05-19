@@ -1,7 +1,8 @@
 # draw_pascal(N): a function that takes an integer N as a parameter and prints
 # the first N rows of the Pascal's triangle.
 
-# Leetcode Pascal's Triangle: https://leetcode.com/problems/pascals-triangle/
+# Leetcode 118. Pascal's Triangle
+# https://leetcode.com/problems/pascals-triangle/
 
 def draw_pascal(numRows):
     if numRows == 1:
